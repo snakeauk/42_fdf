@@ -6,7 +6,7 @@
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:45:34 by kinamura          #+#    #+#             */
-/*   Updated: 2024/10/05 19:43:04 by kinamura         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:27:17 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void				ft_putnbr_fd(int n, int fd);
 int					ft_fopen(char *filename, const char *mode);
 int					ft_abs(int i);
 void				ft_swap(int *i, int *j);
+int					ft_min(int a, int b);
+void				ft_exit_message(char *message);
 t_list				*ft_lstnew(void *content);
 void				ft_lstadd_front(t_list **lst, t_list *new);
 int					ft_lstsize(t_list *lst);

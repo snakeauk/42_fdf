@@ -51,9 +51,9 @@ t_camera	*ft_camera_init(t_fdf *fdf)
 	if (!camera)
 		ft_exit_message("Error: initializing camera");
 	camera->zoom = ft_min(WIDTH / fdf->map->width / 2, HEIGHT / fdf->map->height / 2);
-	camera->x_angle = -0.61;
-	camera->y_angle = -0.52;
-	camera->z_angle = 0.61;
+	camera->x_angle = -0.615472907;
+	camera->y_angle = -0.523599;
+	camera->z_angle = 0.615472907;
 	camera->z_height = 1;
 	camera->x_offset = 0;
 	camera->y_offset = 0;

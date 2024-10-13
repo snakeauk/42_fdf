@@ -39,14 +39,14 @@ int	ft_mouse_up(int button, int x, int y, void *param)
 	return (0);
 }
 
-void	ft_mouse_move_z(int x, int y, t_fdf *env)
+void	ft_mouse_move_z(int x, int y, t_fdf *fdf)
 {
-	if (x < (WIDTH / 2) + env->camera->x_offset)
-		env->camera->z_angle -= (y - env->mouse->prev_y) * 0.002;
+	if (x < (WIDTH / 2) + fdf->camera->x_offset)
+		fdf->camera->z_angle -= (y - fdf->mouse->prev_y) * 0.002;
 	else
-		env->camera->z_angle += (y - env->mouse->prev_y) * 0.002;
-	env->mouse->prev_x = x;
-	env->mouse->prev_y = y;
+		fdf->camera->z_angle += (y - fdf->mouse->prev_y) * 0.002;
+	fdf->mouse->prev_x = x;
+	fdf->mouse->prev_y = y;
 }
 
 int	ft_mouse_move(int x, int y, void *param)

@@ -6,7 +6,7 @@
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 16:47:52 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/12 05:29:10 by kinamura         ###   ########.fr       */
+/*   Updated: 2024/10/13 03:53:17 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_memadd(char *s1, const char *s2, size_t size)
 	return (str);
 }
 
-char	*ft_get_line(char *str)
+char	*ft_get_point(char *str)
 {
 	size_t	index;
 	size_t	n_flag;
@@ -121,7 +121,7 @@ char	*get_next_line(int fd)
 	str = ft_read_file(fd, str);
 	if (!str)
 		return (NULL);
-	line = ft_get_line(str);
+	line = ft_get_point(str);
 	str = ft_next_str(str);
 	return (line);
 }
