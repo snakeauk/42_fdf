@@ -7,8 +7,8 @@
 #include "mlx.h"
 #include "math.h"
 
-#define WIDTH 1920
-#define HEIGHT 1080
+#define WIDTH 980
+#define HEIGHT 700
 
 # define MAC_A 0
 # define MAC_S 1
