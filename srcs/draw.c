@@ -1,4 +1,4 @@
-#include "test.h"
+#include "fdf.h"
 
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	ft_mlx_draw(t_data *data);

@@ -1,4 +1,4 @@
-#include "test.h"
+#include "fdf.h"
 
 t_data		*free_data(t_data *data);
 int			main(void);
@@ -15,7 +15,7 @@ int		main(void)
 {
 	t_data	*data;
 
-	data = init_data("test mlx");
+	data = init_data("fdf mlx");
 	if (!data)
 		return (EXIT_FAILURE);
 	ft_mlx_draw(data);

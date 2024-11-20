@@ -1,5 +1,5 @@
-NAME		=	test
-BONUS		=	bonus
+NAME		=	fdf
+BONUS		=	fdf_bonus
 
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror
@@ -15,7 +15,7 @@ SRCS_DIR	=	./srcs
 SRCS		=	$(wildcard $(SRCS_DIR)/*.c)
 OBJS		=	$(SRCS:.c=.o)
 
-BONUS_DIR	=	./srcs/test_bonus
+BONUS_DIR	=	./srcs/fdf_bonus
 BONUS_SRCS	=	$(wildcard $(SRCS_DIR)/*.c $(BONUS_DIR)/*.c)
 BONUS_OBJS	=	$(BONUS_SRCS:.c=.o)
 

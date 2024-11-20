@@ -1,4 +1,4 @@
-#include "test.h"
+#include "fdf.h"
 
 int		close_win(void *data);
 void	ft_mlx_hook(t_data *data);

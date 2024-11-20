@@ -1,4 +1,4 @@
-#include "test.h"
+#include "fdf.h"
 
 int color_create_trgb(int t, int r, int g, int b);
 int	color_get_t(int trgb);
