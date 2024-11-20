@@ -1,7 +1,7 @@
 #include "fdf.h"
 
 t_data		*free_data(t_data *data);
-int			main(void);
+int			main(int argc, char **argv);
 
 t_data		*free_data(t_data *data)
 {
@@ -11,11 +11,13 @@ t_data		*free_data(t_data *data)
 	return (NULL);
 }
 
-int		main(void)
+int		main(int argc, char **argv)
 {
 	t_data	*data;
 
-	data = init_data("fdf mlx");
+	if (argc != 2)
+		ft_exit_message(EXIT_SUCCESS, "Usage: ./fdf <filename>");
+	data = init_data(argv[1]);
 	if (!data)
 		return (EXIT_FAILURE);
 	ft_mlx_draw(data);

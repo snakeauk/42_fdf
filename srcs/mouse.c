@@ -26,7 +26,6 @@ int	mouseup_hook(int button, int x, int y, void *param)
 	return (0);
 }
 
-
 int	mousemove_hook(int x, int y, void *param)
 {
 	t_data	*data;

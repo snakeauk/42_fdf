@@ -18,6 +18,16 @@
 # define EXPOSE 12
 # define DESTROY 17
 
+typedef	struct s_point
+{
+	int	x;
+	int	y;
+	int	z;
+	int	color;
+	int	reverse;
+}				t_point;
+
+
 typedef struct	s_img {
 	void	*img;
 	char	*addr;
@@ -26,11 +36,34 @@ typedef struct	s_img {
 	int		endian;
 }				t_img;
 
+typedef	struct s_map
+{
+	int	height;
+	int	width;
+	int	***array;
+	int	z_max;
+	int	z_min;
+}				t_map;
+
+typedef	struct s_camera
+{
+	int		zoom;
+	double	x_angle;
+	double	y_angle;
+	double	z_angle;
+	double	z_height;
+	int		x_offset;
+	int		y_offset;
+	int		iso;
+}				t_camera;
+
 typedef struct	s_data
 {
-	void	*mlx;
-	void	*win;
-	t_img	*img;
+	void		*mlx;
+	void		*win;
+	t_img		*img;
+	t_map		*map;
+	t_camera	*camera;
 }				t_data;
 
 // draw.c
@@ -39,7 +72,8 @@ void	ft_mlx_draw(t_data *data);
 
 // main.c
 t_data		*free_data(t_data *data);
-int			main(void);
+int		main(int argc, char **argv);
+
 
 // init.c
 t_data		*init_data(char	*titile);
