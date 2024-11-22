@@ -11,22 +11,10 @@ void	ft_translate(int key_code, t_fdf *fdf)
 	else if (key_code == MAC_J)
 		fdf->camera->y_offset += 10;
 }
-
 void	ft_toggle(t_fdf *fdf)
 {
-	if (fdf->camera->iso)
-	{
-		fdf->camera->x_angle = -0.523599;
-		fdf->camera->y_angle = -0.261799;
-		fdf->camera->z_angle = 0;
-	}
-	else
-	{
-		fdf->camera->x_angle = -0.615472907;
-		fdf->camera->y_angle = -0.523599;
-		fdf->camera->z_angle = 0.615472907;
-	}
-	fdf->camera->iso = !fdf->camera->iso;
+	fdf->camera->z_angle += 0.1;
+	fdf->camera->z_angle = ft_reset_angle(fdf->camera->z_angle);
 }
 
 void	ft_reset(t_fdf *fdf)
