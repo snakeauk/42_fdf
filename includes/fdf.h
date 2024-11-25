@@ -8,15 +8,14 @@
 #include "math.h"
 #include <X11/keysym.h>
 
-#define WIDTH 980
-#define HEIGHT 700
+#define WIDTH 1920
+#define HEIGHT 1080
 
 # define MOUSE_CLICK_LEFT 1
 # define MOUSE_CLICK_RIGHT 2
 # define MOUSE_CLICK_MIDDLE 3
 # define MOUSE_WHEEL_UP 4
 # define MOUSE_WHEEL_DOWN 5
-
 
 typedef struct s_point
 {
