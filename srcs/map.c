@@ -73,27 +73,32 @@ int	ft_size_height(char *filename)
 	return (height);
 }
 
-void	ft_init_z(t_map *map)
+void ft_init_z(t_map *map)
 {
-	int	index;
-	int	len;
+    int index;
+    int len;
 
-	index = 0;
-	map->z_min = map->array[0][0][0];
-	map->z_max = map->array[0][0][0];
-	while (index < map->height)
-	{
-		len = 0;
-		while (len < map->width)
-		{
-			if (map->array[index][len][0] < map->z_min)
-				map->z_min = map->array[index][len][0];
-			if (map->array[index][len][0] > map->z_max)
-				map->z_max = map->array[index][len][0];
-			len++;
-		}
-		index++;
-	}
+    index = 0;
+    map->z_min = map->array[0][0][0];
+    map->z_max = map->array[0][0][0];
+    while (index < map->height)
+    {
+        len = 0;
+        while (len < map->width)
+        {
+            if (map->array[index][len][0] < map->z_min)
+                map->z_min = map->array[index][len][0];
+            if (map->array[index][len][0] > map->z_max)
+                map->z_max = map->array[index][len][0];
+            len++;
+        }
+        index++;
+    }
+    if (map->z_min == map->z_max)
+    {
+        map->z_min -= 1;
+        map->z_max += 1;
+    }
 }
 
 void	ft_check_input(char *filename, t_map *map)

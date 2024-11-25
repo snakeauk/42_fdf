@@ -2,9 +2,9 @@
 
 void	ft_draw_line(t_point start, t_point end, t_fdf *fdf)
 {
-	float	dx;
-	float	dy;
-	float	gradient;
+	double	dx;
+	double	dy;
+	double	gradient;
 
 	fdf->steep = ft_abs(end.y - start.y) > ft_abs(end.x - start.x);
 	if (fdf->steep)
@@ -18,20 +18,19 @@ void	ft_draw_line(t_point start, t_point end, t_fdf *fdf)
 		ft_swap(&start.y, &end.y);
 		start.reverse = 1;
 	}
-	dx = (float)(end.x - start.x);
-	dy = (float)(end.y - start.y);
+	dx = (double)(end.x - start.x);
+	dy = (double)(end.y - start.y);
 	gradient = dy / dx;
 	if (dx == 0.0f)
 		gradient = 1.f;
 	ft_draw_line_loop(start, end, gradient, fdf);
 }
-
-void	ft_draw_line_loop(t_point start, t_point end, float gradient, t_fdf *fdf)
+void	ft_draw_line_loop(t_point start, t_point end, double gradient, t_fdf *fdf)
 {
 	int		x;
-	float	y;
+	double	y;
 
-	y = (float)start.y;
+	y = (double)start.y;
 	x = start.x;
 	while (x <= end.x)
 	{

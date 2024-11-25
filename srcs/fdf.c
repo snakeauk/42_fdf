@@ -60,7 +60,6 @@ t_camera	*ft_camera_init(t_fdf *fdf)
 	camera->iso = 1;
 	return (camera);
 }
-
 int	main(int argc, char **argv)
 {
 	t_fdf	*fdf;

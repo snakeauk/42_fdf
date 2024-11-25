@@ -42,7 +42,7 @@ typedef struct s_camera
 	double	x_angle;
 	double	y_angle;
 	double	z_angle;
-	float	z_height;
+	double	z_height;
 	int		x_offset;
 	int		y_offset;
 	int		iso;
@@ -79,8 +79,8 @@ t_map		*ft_map_init(void);
 
 void		ft_draw(t_map *map, t_fdf *fdf);
 void		ft_draw_line(t_point start, t_point end, t_fdf *fdf);
-int			ft_draw_color(int x, t_point start,t_point end, float factor);
-void		ft_draw_line_loop(t_point start, t_point end, float gradient, t_fdf *fdf);
+int			ft_draw_color(int x, t_point start,t_point end, double factor);
+void		ft_draw_line_loop(t_point start, t_point end, double gradient, t_fdf *fdf);
 void		ft_draw_pixel(t_fdf *fdf, int x, int y, int color);
 int			ft_draw_default_color(int z, t_map *map);
 
@@ -121,8 +121,8 @@ void		ft_rotate_y(int *x, int *z, double y_angle);
 void		ft_rotate_z(int *x, int *y, double z_angle);
 t_point		ft_project(int x, int y, t_fdf *fdf);
 
-float		ft_decimal_part(float num);
-float		ft_reciprocal(float num);
-int			ft_lerp(int v0, int v1, float t);
+double		ft_decimal_part(double num);
+double		ft_reciprocal(double num);
+int			ft_lerp(int v0, int v1, double t);
 
 #endif

@@ -41,7 +41,6 @@ void	ft_draw_pixel(t_fdf *fdf, int x, int y, int color)
 		fdf->data_addr[index] = color >> 16;
 	}
 }
-
 int ft_draw_default_color(int z, t_map *map)
 {
     double percent;
@@ -49,32 +48,31 @@ int ft_draw_default_color(int z, t_map *map)
 
     max = map->z_max - map->z_min;
     if (max == 0)
-        return (0x001f3f);
+        return (0x005F8F);
     percent = ((double)(z - map->z_min) / max);
     if (percent < 0.2)
-        return (0x001f3f);
+        return (0x0074A6);
     else if (percent < 0.4)
-        return (0x0074D9);
+        return (0x339ACC);
     else if (percent < 0.6)
-        return (0x2ECC40);
+        return (0x66C2E0);
     else if (percent < 0.8)
-        return (0xFF851B);
+        return (0xBFE8F7);
     else
         return (0xFFFFFF);
 }
 
 
-int	ft_draw_color(int x, t_point start,t_point end, float factor)
+int	ft_draw_color(int x, t_point start, t_point end, double factor)
 {
-	int	r;
-	int	g;
-	int b;
-	float percent;
-
-	if (start.x == end.x)
+	int		r, g, b;
+	double	percent;
+	
+	
+	if (end.x == start.x)
 		percent = 1.0;
 	else
-		percent = ft_abs(x - start.x) / ft_abs(end.x - start.x);
+		percent = ((double)(x - start.x) / (end.x - start.x));
 	if (start.reverse)
 	{
 		r = ft_lerp(get_color_r(end.color), get_color_r(start.color), percent);
