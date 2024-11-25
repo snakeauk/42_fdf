@@ -42,26 +42,27 @@ void	ft_draw_pixel(t_fdf *fdf, int x, int y, int color)
 	}
 }
 
-int	ft_draw_default_color(int z, t_map *map)
+int ft_draw_default_color(int z, t_map *map)
 {
-	double	percent;
-	int		max;
+    double percent;
+    int max;
 
-	max = map->z_max - map->z_min;
-	if (max == 0)
-		return (0x432371);
-	percent = ((double)(z - map->z_min) / max);
-	if (percent < 0.2)
-		return (0x432371);
-	else if (percent < 0.4)
-		return (0x714674);
-	else if (percent < 0.6)
-		return (0x9F6976);
-	else if (percent < 0.8)
-		return (0xCC8B79);
-	else
-		return (0xFAAE7B);
+    max = map->z_max - map->z_min;
+    if (max == 0)
+        return (0x001f3f);
+    percent = ((double)(z - map->z_min) / max);
+    if (percent < 0.2)
+        return (0x001f3f);
+    else if (percent < 0.4)
+        return (0x0074D9);
+    else if (percent < 0.6)
+        return (0x2ECC40);
+    else if (percent < 0.8)
+        return (0xFF851B);
+    else
+        return (0xFFFFFF);
 }
+
 
 int	ft_draw_color(int x, t_point start,t_point end, float factor)
 {
@@ -70,21 +71,24 @@ int	ft_draw_color(int x, t_point start,t_point end, float factor)
 	int b;
 	float percent;
 
-	percent = ft_abs(x - start.x) / ft_abs(end.x - start.x);
+	if (start.x == end.x)
+		percent = 1.0;
+	else
+		percent = ft_abs(x - start.x) / ft_abs(end.x - start.x);
 	if (start.reverse)
 	{
-		r = ft_lerp((end.color >> 16) & 0xFF, (start.color >> 16) & 0xFF, percent);
-		g = ft_lerp((end.color >> 8) & 0xFF, (start.color >> 8) & 0xFF, percent);
-		b = ft_lerp(end.color & 0xFF, start.color & 0xFF, percent);
+		r = ft_lerp(get_color_r(end.color), get_color_r(start.color), percent);
+		g = ft_lerp(get_color_g(end.color), get_color_g(start.color), percent);
+		b = ft_lerp(get_color_b(end.color), get_color_b(start.color), percent);
 	}
 	else
 	{
-		r = ft_lerp((start.color >> 16) & 0xFF, (end.color >> 16) & 0xFF, percent);
-		g = ft_lerp((start.color >> 8) & 0xFF, (end.color >> 8) & 0xFF, percent);
-		b = ft_lerp(start.color & 0xFF, end.color & 0xFF, percent);
+		r = ft_lerp(get_color_r(start.color), get_color_r(end.color), percent);
+		g = ft_lerp(get_color_g(start.color), get_color_g(end.color), percent);
+		b = ft_lerp(get_color_b(start.color), get_color_b(end.color), percent);
 	}
 	r *= factor;
 	g *= factor;
 	b *= factor;
-	return ((r << 16) | (g << 8) | b );
+	return (create_color(1, r, g, b));
 }

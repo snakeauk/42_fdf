@@ -12,7 +12,7 @@ void	ft_init_table(int **array, char *line, int width)
 	{
 		array[index] = (int *)malloc(sizeof(int) * 2);
 		if (!array[index])
-			ft_exit_message("Error: can't malloc");
+			ft_exit_message(EXIT_FAILURE, "Error: can't malloc");
 		array[index][0] = ft_atoi(str[index]);
 		len = 0;
 		while (str[index][len] && str[index][len] != ',')
@@ -25,7 +25,7 @@ void	ft_init_table(int **array, char *line, int width)
 		index++;
 	}
 	if (index != width || str[index])
-		ft_exit_message("Error: irregular width");
+		ft_exit_message(EXIT_FAILURE, "Error: irregular width");
 	free(str);
 }
 
@@ -39,9 +39,8 @@ int		ft_size_width(char *filename)
 	fd = ft_fopen(filename, "r");
 	width = 0;
 	index = 0;
-	line = get_next_line(fd);
-	if (!line || *line == '\0')
-		ft_exit_message("Error: invalid map");
+	if (!get_next_line(fd, &line) || *line == '\0')
+		ft_exit_message(EXIT_FAILURE, "Error: invalid map");
 	while (line[index])
 	{
 		if (line[index] != ' ' && (line[index + 1] == ' ' || line[index + 1] == '\0'))
@@ -49,12 +48,10 @@ int		ft_size_width(char *filename)
 		index++;
 	}
 	free(line);
-	while ((line = get_next_line(fd)) != NULL)
-	{
+	while (get_next_line(fd, &line))
 		free(line);
-	}
 	if (close(fd) == -1)
-		ft_exit_message("Error: can't close");
+		ft_exit_message(EXIT_FAILURE, "Error: can't close");
 	return (width);
 }
 
@@ -66,15 +63,13 @@ int	ft_size_height(char *filename)
 
 	fd = ft_fopen(filename, "r");
 	height = 0;
-	line = get_next_line(fd);
-	while (line)
+	while (get_next_line(fd, &line))
 	{
 		height++;
 		free(line);
-		line = get_next_line(fd);
 	}
 	if (close(fd) == -1)
-		ft_exit_message("Error: can't close");
+		ft_exit_message(EXIT_FAILURE, "Error: can't close");
 	return (height);
 }
 
@@ -113,20 +108,18 @@ void	ft_check_input(char *filename, t_map *map)
 	index = 0;
 	map->array = (int ***)malloc(sizeof(int **) * map->height);
 	if (!map->array)
-		ft_exit_message("Error: can't malloc");
-	line = get_next_line(fd);
-	while (line && *line != '\0')
+		ft_exit_message(EXIT_FAILURE, "Error: can't malloc");
+	while (get_next_line(fd, &line) && *line != '\0')
 	{
 		map->array[index] = (int **)malloc(sizeof(int *) * map->width);
 		if (!map->array[index])
-			ft_exit_message("Error: can't malloc");
+			ft_exit_message(EXIT_FAILURE, "Error: can't malloc");
 		ft_init_table(map->array[index], line, map->width);
 		free(line);
-		line = get_next_line(fd);
 		index++;
 	}
 	free(line);
 	ft_init_z(map);
 	if (close(fd) == -1)
-		ft_exit_message("Error: can't close");
+		ft_exit_message(EXIT_FAILURE, "Error: can't close");
 }

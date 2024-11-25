@@ -1,40 +1,38 @@
 NAME		=	fdf
+BONUS		=	bonus
 
-CC			=	gcc
-FLAGS		=	-Wall -Wextra -Werror
-MLX_FLAG	=	-framework OpenGL -framework AppKit
-
+CC			=	cc
+CFLAGS		=	-Wall -Wextra -Werror
 RM			=	rm -rf
 
-INCLUDE		=	-I ./includes -I $(LIB_DIR)/includes -I $(MLX_DIR)/
+LIBFT		=	libft
+LIBFT_A		=	$(LIBFT).a
+LIBFT_DIR	=	./$(LIBFT)
 
-LIB_DIR		=	./lib
-LIB			=	lib.a
+MLX			=	minilibx
 
-MLX_DIR		=	./minilibx
-MLX			=	libmlx.a
+SRCS_DIR	=	./srcs
+SRCS		=	$(wildcard $(SRCS_DIR)/*.c)
+OBJS		=	$(SRCS:.c=.o)
 
-
-SRCS_DIR    =	srcs
-KEYBOAD		=	$(SRCS_DIR)/keyboard
-
-SRCS        =	$(SRCS_DIR)/fdf.c \
-				$(SRCS_DIR)/map.c \
-				$(SRCS_DIR)/control.c \
-				$(SRCS_DIR)/keyboard.c \
-				$(SRCS_DIR)/mouse.c \
-				$(SRCS_DIR)/draw.c \
-				$(SRCS_DIR)/project.c \
-				$(SRCS_DIR)/line.c \
-				$(SRCS_DIR)/ft_utils.c 
+BONUS_DIR	=	./srcs/test_bonus
+BONUS_SRCS	=	$(wildcard $(SRCS_DIR)/*.c $(BONUS_DIR)/*.c)
+BONUS_OBJS	=	$(BONUS_SRCS:.c=.o)
 
 
-OBJS_DIR	=	objs
-OBJS		=	$(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
-OBJS_VIM	=	$(SRCS_VIM=$(OBJS_DIR)/%.o)
-OBJS_GAME	=	$(SRCS_GAME=$(OBJS_DIR)/%.o)
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S), Darwin)
+	OS_DIR		=	$(LIBFT_DIR)/mac
+	MLX_DIR		=	$(MLX)
+	MLX_A		=	$(MLX_DIR)/libmlx.a
+else
+	OS_DIR		=	$(LIBFT_DIR)/linux
+	MLX_DIR		=	$(MLX)-linux
+	MLX_A		=	$(MLX_DIR)/libmlx_Linux.a
+endif
 
-MAKEFLAGS	+=	--no-print-directory
+INCLUDES	=	-I ./includes -I $(LIBFT_DIR)/includes -I $(OS_DIR)/includes -I $(MLX_DIR)
+MLX_INCLUDES=	-lXext -lXext -lX11 -lm -lz
 
 RESET		=	\033[0m
 BOLD		=	\033[1m
@@ -45,42 +43,47 @@ INVERT		=	\033[7m
 LIGHT_BLUE	=	\033[94m
 YELLOW		=	\033[93m
 
-all:	$(NAME)
+MAKEFLAGS	+=	--no-print-directory
 
-$(NAME): mlx libft $(OBJS)
-	@$(MAKE) -C $(MLX_DIR)
+all: $(NAME)
+
+$(NAME): $(LIBFT_A) $(MLX_A) $(OBJS)
 	@echo "$(BOLD)$(LIGHT_BLUE)Compile $(NAME)...$(RESET)"
-	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJS) $(LIB_DIR)/$(LIB) $(MLX_DIR)/$(MLX) -lm -o $(NAME) $(MLX_FLAG)
+	@echo "$(BOLD)$(LIGHT_BLUE)Create $(LIBFT)...$(RESET)"
+	@$(MAKE) -C $(LIBFT_DIR)
+	@echo "$(BOLD)$(LIGHT_BLUE)Compile now...$(RESET)"
+	@$(CC) $(CFLAG) $(OBJS) $(MLX_A) $(LIBFT_DIR)/$(LIBFT_A) $(INCLUDES) $(MLX_INCLUDES) -o $(NAME)
 	@echo "$(BOLD)$(LIGHT_BLUE)Compile $(NAME) Complete!$(RESET)"
 
-libft:
-	@echo "$(BOLD)$(LIGHT_BLUE)Making $(LIB)...$(RESET)"
-	@$(MAKE) -C $(LIB_DIR)
+.c.o:
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-mlx:
-	@echo "$(BOLD)$(LIGHT_BLUE)Making $(MLX)...$(RESET)"
+$(LIBFT_A):
+	@echo "$(BOLD)$(LIGHT_BLUE)Create $(MLX)...$(RESET)"
+	@$(MAKE) -C $(LIBFT_DIR)
+
+$(MLX_A):
+	@echo "$(BOLD)$(LIGHT_BLUE)Create $(MLX)...$(RESET)"
 	@$(MAKE) -C $(MLX_DIR)
-
-$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
-	@mkdir -p $(OBJS_DIR)
-	@echo "$(BOLD)$(LIGHT_BLUE)Compiling $<...$(RESET)"
-	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean:
 	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning $(NAME)...$(RESET)"
-	@$(MAKE) clean -C $(LIB_DIR)
-	@$(RM) $(MLX_DIR)/*.o
-	@$(RM) $(OBJS_DIR)
+	@$(MAKE) clean -C $(LIBFT_DIR)
+	@$(RM) $(OBJS) $(BONUS_OBJS)
 	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning $(NAME) Complete!$(RESET)"
 
 fclean:
 	@echo "$(BOLD)$(LIGHT_BLUE)ALL Cleaning $(NAME)...$(RESET)"
-	@$(MAKE) fclean -C $(LIB_DIR)
-	@echo "$(BOLD)$(LIGHT_BLUE)ALL Cleaning $(MLX_DIR)...$(RESET)"
+	@$(MAKE) fclean -C $(LIBFT_DIR)
 	@$(MAKE) clean -C $(MLX_DIR)
-	@echo "$(BOLD)$(LIGHT_BLUE)ALL Cleaning $(OBJS_DIR)...$(RESET)"
-	@$(RM) $(OBJS_DIR) $(NAME)
+	@$(RM) $(OBJS) $(BONUS_OBJS) $(NAME) $(BONUS)
 	@echo "$(BOLD)$(LIGHT_BLUE)ALL Cleaning $(NAME) Complete!$(RESET)"
+
+bonus: fclean $(LIBFT_A) $(MLX_A) $(BONUS_OBJS) $(OBJS)
+	@echo "$(BOLD)$(LIGHT_BLUE)Compile $(BONUS)...$(RESET)"
+	@$(MAKE) -C $(LIBFT_DIR)
+	@$(CC) $(CFLAG) $(INCLUDES) $(BONUS_OBJS) $(LIBFT_DIR)/$(LIBFT_A) -o $(BONUS)
+	@echo "$(BOLD)$(LIGHT_BLUE)Compile $(BONUS) Complete!$(RESET)"
 
 re: fclean all
 

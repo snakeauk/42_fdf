@@ -1,12 +1,12 @@
 #include "fdf.h"
 
-void	ft_hook_control(t_fdf *fdf)
+void ft_hook_control(t_fdf *fdf)
 {
-	mlx_hook(fdf->win, 2, 0, ft_key_press, fdf);
-	mlx_hook(fdf->win, 4, 0, ft_mouse_down, fdf);
-	mlx_hook(fdf->win, 5, 0, ft_mouse_up, fdf);
-	mlx_hook(fdf->win, 6, 0, ft_mouse_move, fdf);
-	mlx_hook(fdf->win, 17, 0, ft_close_win, fdf);
+    mlx_hook(fdf->win, 2, 1L<<0, ft_key_press, fdf);
+    mlx_hook(fdf->win, 4, 1L<<2, ft_mouse_down, fdf);
+    mlx_hook(fdf->win, 5, 1L<<9, ft_mouse_up, fdf);
+    mlx_hook(fdf->win, 6, 1L<<13, ft_mouse_move, fdf);
+    mlx_hook(fdf->win, 17, 1L<<0, ft_close_win, fdf);
 }
 
 int		ft_close_win(void *param)
@@ -28,6 +28,7 @@ int		ft_close_win(void *param)
 		{
 			free(fdf->map->array[y][x]);
 			x++;
+
 		}
 		free(fdf->map->array[y]);
 		y++;
@@ -41,9 +42,9 @@ int		ft_close_win(void *param)
 
 double	ft_reset_angle(double angle)
 {
-	if (angle >= PI)
-		return (-2 * PI - angle);
-	else if (angle <= -PI)
-		return (2 * PI + angle);
-	return (angle);
+    while (angle > M_PI)
+        angle -= 2 * M_PI;
+    while (angle < -M_PI)
+        angle += 2 * M_PI;
+    return (angle);
 }

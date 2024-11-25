@@ -1,14 +1,14 @@
 #include "fdf.h"
 
-void	ft_zoom(int button, t_fdf *fdf)
+void ft_zoom(int button, t_fdf *fdf)
 {
-	if (button == MOUSE_WHEEL_UP)
-		fdf->camera->zoom++;
-	else if (button == MOUSE_WHEEL_DOWN)
-		fdf->camera->zoom--;
-	if (fdf->camera->zoom < 1)
-		fdf->camera->zoom = 1;
-	ft_draw(fdf->map, fdf);
+    if (button == MOUSE_WHEEL_UP && fdf->camera->zoom != INT_MAX)
+        fdf->camera->zoom++;
+    else if (button == MOUSE_WHEEL_DOWN && fdf->camera->zoom > 1)
+        fdf->camera->zoom--;
+    if (fdf->camera->zoom < 1)
+        fdf->camera->zoom = 1;
+    ft_draw(fdf->map, fdf);
 }
 
 int		ft_mouse_down(int button, int x, int y, void *param)
@@ -39,14 +39,20 @@ int	ft_mouse_up(int button, int x, int y, void *param)
 	return (0);
 }
 
-void	ft_mouse_move_z(int x, int y, t_fdf *fdf)
+void ft_mouse_move_z(int x, int y, t_fdf *fdf)
 {
-	if (x < (WIDTH / 2) + fdf->camera->x_offset)
-		fdf->camera->z_angle -= (y - fdf->mouse->prev_y) * 0.002;
-	else
-		fdf->camera->z_angle += (y - fdf->mouse->prev_y) * 0.002;
-	fdf->mouse->prev_x = x;
-	fdf->mouse->prev_y = y;
+    int dy;
+
+    dy = y - fdf->mouse->prev_y;
+    if (dy == 0)
+        return;
+    if (x < (WIDTH / 2) + fdf->camera->x_offset)
+        fdf->camera->z_angle -= dy * 0.002;
+    else
+        fdf->camera->z_angle += dy * 0.002;
+    fdf->camera->z_angle = ft_reset_angle(fdf->camera->z_angle);
+    fdf->mouse->prev_x = x;
+    fdf->mouse->prev_y = y;
 }
 
 int	ft_mouse_move(int x, int y, void *param)

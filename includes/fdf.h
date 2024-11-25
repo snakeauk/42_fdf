@@ -6,23 +6,10 @@
 #include "get_next_line.h"
 #include "mlx.h"
 #include "math.h"
+#include <X11/keysym.h>
 
 #define WIDTH 980
 #define HEIGHT 700
-
-# define MAC_A 0
-# define MAC_S 1
-# define MAC_D 2
-# define MAC_H 4
-# define MAC_W 13
-# define MAC_R 15
-# define MAC_PLUS 24
-# define MAC_MINUS 27
-# define MAC_L 37
-# define MAC_J 38
-# define MAC_K 40
-# define MAC_SPACE 49
-# define MAC_ESCAPE 53
 
 # define MOUSE_CLICK_LEFT 1
 # define MOUSE_CLICK_RIGHT 2
@@ -30,7 +17,6 @@
 # define MOUSE_WHEEL_UP 4
 # define MOUSE_WHEEL_DOWN 5
 
-# define PI 3.1415926535
 
 typedef struct s_point
 {
@@ -123,6 +109,12 @@ int			ft_mouse_up(int button, int x, int y, void *param);
 void		ft_mouse_move_z(int x, int y, t_fdf *env);
 int			ft_mouse_move(int x, int y, void *param);
 
+
+int			create_color(int t, int r, int g, int b);
+int			get_color_t(int t);
+int			get_color_r(int r);
+int			get_color_g(int g);
+int			get_color_b(int b);
 
 void		ft_rotate_x(int *y, int *z, double x_angle);
 void		ft_rotate_y(int *x, int *z, double y_angle);
