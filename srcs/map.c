@@ -18,14 +18,14 @@ void	ft_init_table(int **array, char *line, int width)
 		while (str[index][len] && str[index][len] != ',')
 			len++;
 		if (str[index][len] == ',')
-			array[index][1] = ft_strtol(&str[index][++len], NULL, 16);
+			array[index][1] = ft_atoi(&str[index][++len]);
 		else
 			array[index][1] = -1;
 		free(str[index]);
 		index++;
 	}
-	if (index != width || str[index])
-		ft_exit_message(EXIT_FAILURE, "Error: irregular width");
+		// if (index != width || str[index])
+		// 	ft_exit_message(EXIT_FAILURE, "Error: irregular width");
 	free(str);
 }
 

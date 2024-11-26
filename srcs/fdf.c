@@ -34,7 +34,7 @@ t_map	*ft_map_init(void)
 
 	map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
-		ft_exit_message(EXIT_FAILURE, "Error: malloc map");
+		ft_exit_message(EXIT_FAILURE, "Error: malloc map\n");
 	map->height = 0;
 	map->width = 0;
 	map->array = NULL;
@@ -49,7 +49,7 @@ t_camera	*ft_camera_init(t_fdf *fdf)
 
 	camera = (t_camera *)malloc(sizeof(t_camera));
 	if (!camera)
-		ft_exit_message(EXIT_FAILURE, "Error: initializing camera");
+		ft_exit_message(EXIT_FAILURE, "Error: initializing camera\n");
 	camera->zoom = ft_min(WIDTH / fdf->map->width / 2, HEIGHT / fdf->map->height / 2);
 	camera->x_angle = -0.5;
 	camera->y_angle = -0.5;
@@ -65,7 +65,7 @@ int	main(int argc, char **argv)
 	t_fdf	*fdf;
 
 	if (argc != 2)
-		ft_exit_message(EXIT_FAILURE, "Usage: ./fdf <filename>");
+		ft_exit_message(EXIT_FAILURE, "Usage: ./fdf <filename>\n");
 	fdf = ft_fdf_init(argv[1]);
 	fdf->map = ft_map_init();
 	ft_check_input(argv[1], fdf->map);
