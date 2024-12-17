@@ -36,15 +36,6 @@ typedef struct s_point
 	unsigned int	z;
 }			t_point;
 
-typedef	struct s_line
-{
-	t_point		*start;
-	t_point		*end;
-	t_map		*map;
-	t_camera	*camera;
-	t_data		*data;
-}				t_line;
-
 typedef struct s_camera
 {
 	int		x_angle;
@@ -57,13 +48,12 @@ typedef struct s_camera
 
 typedef struct	s_map
 {
-	t_point	**map;
+	t_point	***table;
 	int		width;
 	int		height;
 	int		x;
 	int		y;
 	int		zoom;
-	int		z_max;
 	double	angle;
 	double	scale;
 	double	scale_base;
@@ -94,8 +84,45 @@ typedef struct	s_data
 	t_button	*button;
 }				t_data;
 
+typedef	struct s_line
+{
+	t_point		*start;
+	t_point		*end;
+	t_map		*map;
+	t_camera	*camera;
+	t_data		*data;
+}				t_line;
 
+// main.c
 int			main(int argc, char **argv);
 
+// data.c
+int			init_data(char *title, t_data *data);
+
+// map.c
+int	init_map(char *filename, t_map *map);
+int	get_width(char *line);
+
+// check_file.c
+int	check_file(char *filename);
+
+
+// free.c
+void	free_data(t_data *data);
+void	free_table(t_point ***table);
+void	free_map(t_map **map);
+
+// init_table.c
+int	init_table(char *filename, t_map *map);
+
+// color.c
+int color_create_trgb(int t, int r, int g, int b);
+int	color_get_t(int trgb);
+int	color_get_r(int trgb);
+int	color_get_g(int trgb);
+int	color_get_b(int trgb);
+
+// debug.c
+int	debug_print_table(t_map *map);
 
 #endif
