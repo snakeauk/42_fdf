@@ -13,7 +13,6 @@ int		main(int argc, char **argv)
 	}
 	if (init_data(argv[1], &data) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	// debug_print_table(data.map);
 	free_data(&data);
 	return (0);
 	// ft_mlx_draw(&data);

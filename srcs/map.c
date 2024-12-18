@@ -37,8 +37,11 @@ int	init_map(char *filename, t_map *map)
 {
 	map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
+	{
+		perror("Error");
 		return (EXIT_FAILURE);
-	if (init_table(filename, map) != EXIT_SUCCESS);
+	}
+	if (init_table(filename, map) != EXIT_SUCCESS)
 	{
 		free_map(&map);
 		return (EXIT_FAILURE);

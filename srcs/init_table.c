@@ -94,9 +94,9 @@ static int get_size(char *filename, t_map *map)
 	map->height = 0;
 	while (get_next_line(fd, &line))
 	{
+        if (map->height == 0)
+		    map->width = get_width(line);
 		map->height++;
-		if (map->height == 0)
-			map->width = get_width(line);
 		free(line);
 	}
 	if (ft_close(fd) < 0)
@@ -113,12 +113,12 @@ int	init_table(char *filename, t_map *map)
 		return (EXIT_FAILURE);
 	if (get_size(filename, map) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	ft_printf("OK!\n");
-	// fd = ft_fopen(filename, "r");
-	// if (fd < 0)
-	// 	return (EXIT_FAILURE);
-	// status = full_table(fd, map);
-	// if (ft_close(fd) < 0)
-	// 	return (EXIT_FAILURE);
+	fd = ft_fopen(filename, "r");
+	if (fd < 0)
+		return (EXIT_FAILURE);
+	status = full_table(fd, map);
+	if (ft_close(fd) < 0)
+		return (EXIT_FAILURE);
+	debug_print_table(map);
 	return (EXIT_SUCCESS);
 }
