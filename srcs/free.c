@@ -17,7 +17,7 @@ void	free_map(t_map **map)
 	{
 		if ((*map)->table)
 			free_table((*map)->table);
-		free(map);
+		free(*map);
 	}
 }
 

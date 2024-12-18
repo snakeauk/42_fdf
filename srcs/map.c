@@ -25,19 +25,20 @@ int	get_width(char *line)
 	if (!line)
 		return (width);
 	s = ft_split(line, ' ');
-	while (s[width])
+	if (!s)
+		return (width);
+	while (s[width] != NULL)
 		width++;
 	ft_free_array2((void **)s);
 	return (width);
 }
-
 
 int	init_map(char *filename, t_map *map)
 {
 	map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
 		return (EXIT_FAILURE);
-	if (init_table(filename, map) != EXIT_SUCCESS)
+	if (init_table(filename, map) != EXIT_SUCCESS);
 	{
 		free_map(&map);
 		return (EXIT_FAILURE);
