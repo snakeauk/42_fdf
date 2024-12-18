@@ -11,30 +11,31 @@ void	free_data(t_data *data)
 		free_map(&data->map);
 }
 
-void	free_map(t_map **map)
+void free_map(t_map **map)
 {
-	if (*map)
-	{
-		if ((*map)->table)
-		{
-			free_table(&((*map)->table));
-		}
-		free(*map);
-	}
+    int x;
+	int	y;
+
+    if (!map || !*map)
+        return;
+    if ((*map)->table != NULL)
+		free_table((*map)->table);
+    free(*map);
+    *map = NULL;
 }
 
-
-void	free_table(t_point ****table)
+void	free_table(t_point ***table)
 {
 	int	x;
 	int	y;
 
-	if (*table)
-	{
+    if (table)
+    {
 		y = 0;
 		while (table[y])
 		{
-			while (table[y][x])
+			x = 0;
+			while(table[y][x])
 			{
 				free(table[y][x]);
 				x++;
@@ -42,5 +43,7 @@ void	free_table(t_point ****table)
 			free(table[y]);
 			y++;
 		}
-	}
+        free(table);
+        table = NULL;
+    }
 }

@@ -2,7 +2,8 @@
 
 void	init_map_value(t_map *map);
 int		get_width(char *line);
-int		init_map(char *filename, t_map *map);
+int	init_map(char *filename, t_map **map);
+
 
 void	init_map_value(t_map *map)
 {
@@ -33,19 +34,20 @@ int	get_width(char *line)
 	return (width);
 }
 
-int	init_map(char *filename, t_map *map)
+int	init_map(char *filename, t_map **map)
 {
-	map = (t_map *)malloc(sizeof(t_map));
-	if (!map)
+	*map = (t_map *)malloc(sizeof(t_map));
+	if (!*map)
 	{
 		perror("Error");
 		return (EXIT_FAILURE);
 	}
-	if (init_table(filename, map) != EXIT_SUCCESS)
+	(*map)->table = NULL;
+	init_map_value(*map);
+	if (init_table(filename, *map) != EXIT_SUCCESS)
 	{
-		free_map(&map);
+		free_map(map);
 		return (EXIT_FAILURE);
 	}
-	init_map_value(map);
 	return (EXIT_SUCCESS);
 }

@@ -4,10 +4,11 @@ int	init_table(char *filename, t_map *map);
 
 static int full_point(char *line, t_point *point, t_map *map)
 {
-    char **s = ft_split(line, ',');
+    char **s;
+
+	s = ft_split(line, ',');
     if (!s)
         return (EXIT_FAILURE);
-
     point->z = ft_atoi(s[0]);
     if (s[1])
         point->color = ft_strtol(s[1], NULL, 16);
@@ -33,8 +34,8 @@ static t_point **full_array(char *line, t_map *map)
     s = ft_split(line, ' ');
     if (!s)
     {
-        free(point);
-        return NULL;
+        ft_free_array2((void **)point);
+        return (NULL);
     }
     map->x = 0;
     while (map->x < map->width)
@@ -73,7 +74,7 @@ static int full_table(int fd, t_map *map)
         free(line);
         if (!map->table[map->y])
         {
-            ft_free_array3((void ***)map->table);
+            free_map(&map);
             return (EXIT_FAILURE);
         }
         map->y++;

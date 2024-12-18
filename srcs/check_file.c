@@ -9,8 +9,10 @@ static int	check_width(char *line)
 
 	width = 0;
 	if (!line)
-		return (width);
+		return (0);
 	s = ft_split(line, ' ');
+	if (!s)
+		return (0);
 	while (s[width])
 	{
 		if (ft_atoi(s[width]) == 0 && s[width][0] != '0')
@@ -36,7 +38,7 @@ static int	check_size(int fd)
 	{
 		w = check_width(line);
 		free(line);
-		height++;	
+		height++;
 		if (height == 1)
 			width = w;
 		else if (w != width)
@@ -57,6 +59,7 @@ int	check_file(char *filename)
 {
 	int		fd;
 	int		status;
+	char	*line;
 
 	if (!filename)
 	{
@@ -67,6 +70,8 @@ int	check_file(char *filename)
 	if (fd < 0)
 		return (EXIT_FAILURE);
 	status = check_size(fd);
+	while (get_next_line(fd, &line) != 0)
+		free(line);
 	if (ft_close(fd) < 0)
 		return (EXIT_FAILURE);
 	if (status != EXIT_SUCCESS)
