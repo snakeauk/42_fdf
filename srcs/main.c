@@ -14,9 +14,8 @@ int	main(int argc, char **argv)
 	if (init_data(argv[1], &data) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	free_data(&data);
-	return (EXIT_SUCCESS);
-	// ft_mlx_draw(&data);
-	// ft_mlx_hook(&data);
-	// mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
-	// mlx_loop(data.mlx);
+	ft_mlx_draw(&data);
+	ft_mlx_hook(&data);
+	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
+	mlx_loop(data.mlx);
 }

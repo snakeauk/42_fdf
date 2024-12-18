@@ -10,7 +10,7 @@ static int full_point(char *line, t_point *point, t_map *map)
     if (!s)
         return (EXIT_FAILURE);
     point->z = ft_atoi(s[0]);
-    if (s[1])
+    if (s[1] != NULL)
         point->color = ft_strtol(s[1], NULL, 16);
     else
     {
@@ -74,7 +74,7 @@ static int full_table(int fd, t_map *map)
         free(line);
         if (!map->table[map->y])
         {
-            free_map(&map);
+            free_map(map);
             return (EXIT_FAILURE);
         }
         map->y++;
@@ -120,6 +120,5 @@ int	init_table(char *filename, t_map *map)
 	status = full_table(fd, map);
 	if (ft_close(fd) < 0)
 		return (EXIT_FAILURE);
-	debug_print_table(map);
 	return (EXIT_SUCCESS);
 }
