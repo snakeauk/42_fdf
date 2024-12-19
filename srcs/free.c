@@ -1,21 +1,53 @@
 #include "fdf.h"
 
 void	free_data(t_data *data);
+void	free_line(t_line *line);
 void	free_table(t_point ***table);
 void	free_map(t_map *map);
 
 
 void	free_data(t_data *data)
 {
-	if (data->map != NULL)
+	if (data != NULL)
 	{
-		free_map(data->map);
-		data->map = NULL;
+		if (data->map != NULL)
+		{
+			free_map(data->map);
+			data->map = NULL;
+		}
+		if (data->camera != NULL)
+		{
+			free(data->camera);
+			data->camera = NULL;
+		}
+		if (data->line != NULL)
+		{
+			free_line(data->line);
+			data->line = NULL;
+		}
+		data = NULL;
 	}
-	if (data->camera != NULL)
+}
+
+void	free_line(t_line *line)
+{
+	if (line != NULL)
 	{
-		free(data->camera);
-		data->camera = NULL;
+		if (line->start != NULL)
+		{
+			free(line->start);
+			line->start = NULL;
+		}
+		if (line->end != NULL)
+		{
+			free(line->end);
+			line->end = NULL;
+		}
+		line->map = NULL;
+		line->camera = NULL;
+		line->data = NULL;
+		free(line);
+		line = NULL;
 	}
 }
 

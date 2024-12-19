@@ -41,7 +41,7 @@ static int	check_size(int fd)
 		height++;
 		if (height == 1)
 			width = w;
-		else if (w != width)
+		else if (w != width && w != 0)
 		{
 			ft_dprintf(STDERR_FILENO, "Error: invalid map width\n");
 			return (EXIT_FAILURE);

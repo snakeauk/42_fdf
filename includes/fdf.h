@@ -81,6 +81,7 @@ typedef struct s_data
 	int				endian;
 	t_map			*map;
 	t_camera		*camera;
+	struct s_line	*line;
 }					t_data;
 
 typedef struct s_line
@@ -116,6 +117,8 @@ int					check_file(char *filename);
 void				free_data(t_data *data);
 void				free_table(t_point ***table);
 void				free_map(t_map *map);
+void				free_line(t_line *line);
+
 
 // init_table.c
 int					init_table(char *filename, t_map *map);

@@ -55,9 +55,9 @@ int	toggle(int key_code, void *param)
 	data = (t_data *)param;
     if (!data || !data->map)
         return (EXIT_FAILURE);
-	if (key_code == XK_Right)
+	if (key_code == XK_Up)
 		data->map->rot_x += 0.1;
-	else if (key_code == XK_Up)
+	else if (key_code == XK_Right)
 		data->map->rot_y += 0.1;
 	else if (key_code == XK_Left)
 		data->map->rot_z += 0.1;

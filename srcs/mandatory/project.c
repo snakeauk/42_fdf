@@ -29,6 +29,8 @@ void draw_line(t_line *line)
 	t_point	*end;
 	double	dx;
 	double	dy;
+	double	x;
+	double	y;
     int   	max;
 
     if (!line)
@@ -44,11 +46,14 @@ void draw_line(t_line *line)
     max = ft_max(ft_abs(dx), ft_abs(dy));
     dx /= (double)max;
     dy /= (double)max;
-	while ((int)(start->x - end->x) || (int)(start->y - end->y))
+	x = (double)start->x;
+	y = (double)start->y;
+	// printf("[%f, %f] start[%d, %d] end[%d, %d]\n", dx, dy, start->x, start->y, end->x, end->y);
+	while ((int)(x - (double)end->x) || (int)(y - (double)end->y))
     {
-        ft_mlx_pixel_put(line->data, start->x + (int)line->camera->x_angle, start->y + (int)line->camera->y_angle, line->color);
-        start->x += (int)dx;
-        start->y += (int)dy;
+        ft_mlx_pixel_put(line->data, x + (int)line->camera->x_angle, y + (int)line->camera->y_angle, line->color);
+        x += dx;
+        y += dy;
     }
 }
 // void draw_line(t_line *line);

@@ -29,6 +29,28 @@ void	init_data_value(t_data *data)
 {
 	data->map = NULL;
 	data->camera = NULL;
+	data->line = NULL;
+}
+
+int	init_line(t_line **line, t_data *data)
+{
+	if (!data)
+		return (EXIT_FAILURE);
+	*line = (t_line *)malloc(sizeof(t_line));
+	if (!*line)
+		return (EXIT_FAILURE);
+	(*line)->start = NULL;
+	(*line)->end = NULL;
+	(*line)->map = data->map;
+	(*line)->camera = data->camera;
+	(*line)->data = data;
+	(*line)->start = (t_point *)malloc(sizeof(t_point));
+	if (!(*line)->start)
+		return (EXIT_FAILURE);
+	(*line)->end = (t_point *)malloc(sizeof(t_point));
+	if (!(*line)->end)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 int	init_data(char *title, t_data *data)
@@ -39,6 +61,8 @@ int	init_data(char *title, t_data *data)
 	if (init_map(title, &(data->map)) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	if (init_camera(&(data->camera)) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	if (init_line(&(data->line), data) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	data->line_length = data->map->width;
 	data->mlx = mlx_init();

@@ -6,7 +6,7 @@ int		init_map(char *filename, t_map **map);
 
 void	init_map_value(t_map *map)
 {
-	map->zoom = 10;
+	map->zoom = 20;
 	map->angle = 0.5;
 	map->scale_base = 1.0;
 	map->scale_offset = 0.0;
