@@ -26,7 +26,7 @@ static int full_point(char *line, t_point *point, t_map *map)
 static t_point **full_array(char *line, t_map *map)
 {
     t_point **point;
-    char **s;
+    char    **s;
 
     point = (t_point **)malloc(sizeof(t_point *) * (map->width + 1));
     if (!point)
@@ -40,7 +40,7 @@ static t_point **full_array(char *line, t_map *map)
     map->x = 0;
     while (map->x < map->width)
     {
-        point[map->x] = malloc(sizeof(t_point));
+        point[map->x] = (t_point *)malloc(sizeof(t_point));
         if (!point[map->x])
         {
             ft_free_array2((void **)point);
@@ -57,7 +57,7 @@ static t_point **full_array(char *line, t_map *map)
     }
     point[map->x] = NULL;
     ft_free_array2((void **)s);
-    return point;
+    return (point);
 }
 
 static int full_table(int fd, t_map *map)

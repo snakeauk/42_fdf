@@ -18,6 +18,8 @@ int		close_win(void *param)
 
 	data = (t_data *)param;
 	mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_image(data->mlx, data->img);
+	mlx_destroy_display(data->mlx);
 	free_data(data);
 	exit (EXIT_SUCCESS);
 }

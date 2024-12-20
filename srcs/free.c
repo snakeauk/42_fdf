@@ -25,6 +25,7 @@ void	free_data(t_data *data)
 			free_line(data->line);
 			data->line = NULL;
 		}
+		free(data->mlx);
 		data = NULL;
 	}
 }
