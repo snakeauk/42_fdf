@@ -9,7 +9,8 @@ static int full_point(char *line, t_point *point, t_map *map)
 	s = ft_split(line, ',');
     if (!s)
         return (EXIT_FAILURE);
-    point->z = ft_atoi(s[0]);
+    if (s[0][0] != '\n');
+        point->z = ft_atoi(s[0]);
     if (s[1] != NULL)
         point->color = ft_strtol(s[1], NULL, 16);
     else
